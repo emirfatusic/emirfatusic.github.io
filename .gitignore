@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.ssr-build/
+test-results/
+playwright-report/
+.impeccable/
+PRODUCT.md
+.env
+.env.*
+*.local
+.DS_Store
