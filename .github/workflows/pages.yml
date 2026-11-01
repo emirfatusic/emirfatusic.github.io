@@ -1,7 +1,9 @@
 name: Publish portfolio
 
-# Publishing is deliberately manual until the finished preview is approved.
+# Main publishes only after this workflow's build and browser tests pass.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

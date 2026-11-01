@@ -36,7 +36,7 @@ The page uses native links, native dialog semantics, local fonts and optimized l
 
 ## Publishing
 
-`Check portfolio` validates changes without publishing. `Publish portfolio` is a manual GitHub Actions workflow that builds, tests and deploys the exact static output to GitHub Pages. The intended address is https://emirfatusic.github.io/.
+`Check portfolio` validates changes without publishing. `Publish portfolio` builds and tests every push to `main`, then deploys that exact static output to GitHub Pages only when its checks pass. It can also be triggered manually. The site is https://emirfatusic.github.io/.
 
 ## Assets
 
