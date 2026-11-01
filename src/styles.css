@@ -13,20 +13,21 @@
   font-display: swap;
 }
 :root {
-  color-scheme: only light;
+  color-scheme: light dark;
   font-family: Inter, Arial, sans-serif;
-  color: #082b3b;
-  background: #f6fafc;
+  color: light-dark(#082b3b, #e2f1f8);
+  background: light-dark(#f6fafc, #0b1e2a);
   font-synthesis: none;
   font-optical-sizing: auto;
-  --ink: #082b3b;
-  --muted: #3e5f73;
-  --blue: #397da5;
+  --canvas: light-dark(#f6fafc, #0b1e2a);
+  --ink: light-dark(#082b3b, #e2f1f8);
+  --muted: light-dark(#3e5f73, #a7c1d0);
+  --blue: light-dark(#397da5, #86caf1);
   --lime: #c0f86c;
-  --line: #bdd1da;
-  --focus: #075c70;
+  --line: light-dark(#bdd1da, #2d4c5d);
+  --focus: light-dark(#075c70, #b5ef8b);
   scroll-behavior: smooth;
-  scrollbar-color: #7ba5b7 #eaf5f8;
+  scrollbar-color: light-dark(#7ba5b7, #60889b) light-dark(#eaf5f8, #0f2b3b);
 }
 * {
   box-sizing: border-box;
@@ -113,7 +114,7 @@ section {
   left: 12px;
   transform: translateY(-170%);
   z-index: 20;
-  background: #fff;
+  background: light-dark(#fff, #1b3a4b);
   padding: 12px 18px;
   border-radius: 8px;
 }
@@ -154,14 +155,14 @@ section {
 .location {
   font-size: 14px;
   justify-self: end;
-  color: #2c536b;
+  color: light-dark(#2c536b, #aecbd9);
   white-space: nowrap;
 }
 .hero {
   position: relative;
   isolation: isolate;
   min-height: 800px;
-  background: #d8ecf8;
+  background: light-dark(#d8ecf8, #0d293a);
   overflow: hidden;
 }
 .hero-scenery,
@@ -171,6 +172,7 @@ section {
   z-index: -2;
 }
 .hero-scenery img {
+  opacity: var(--scenery-opacity, 1);
   width: 100%;
   height: 100%;
   display: block;
@@ -179,7 +181,9 @@ section {
 }
 .hero-wash {
   z-index: -1;
-  background: linear-gradient(180deg, transparent 65%, #f6fafc 100%);
+  background:
+    linear-gradient(light-dark(transparent, #061b2b66), light-dark(transparent, #061b2b66)),
+    linear-gradient(180deg, transparent 65%, var(--canvas) 100%);
 }
 .hero-inner {
   position: relative;
@@ -203,13 +207,13 @@ h1 > span {
   display: block;
 }
 h1 em {
-  color: #377ea6;
+  color: light-dark(#377ea6, #86caf1);
   white-space: nowrap;
 }
 .hero-intro {
   font-size: 22px;
   line-height: 1.4;
-  color: #244e67;
+  color: light-dark(#244e67, #c1dce9);
   margin-top: 22px;
   max-width: 660px;
   text-wrap: pretty;
@@ -240,27 +244,27 @@ h1 em {
   color: #123608;
   background: linear-gradient(180deg, #d3ff8e, #baf65b);
   box-shadow:
-    inset 0 1px 2px #fff,
+    inset 0 1px 2px light-dark(#fff, #8ab6ca55),
     0 0 0 1px #a9e453,
     0 5px 20px #c3ef8c42;
 }
 .button--primary:hover {
   background: linear-gradient(180deg, #dfffaf, #c6fa79);
   box-shadow:
-    inset 0 1px 2px #fff,
+    inset 0 1px 2px light-dark(#fff, #8ab6ca55),
     0 0 0 1px #8bc12a,
     0 6px 22px #b7e08555;
 }
 .button--glass {
-  background: #f0faffd9;
+  background: light-dark(#f0faffd9, #14384ae6);
   backdrop-filter: blur(12px);
   box-shadow:
-    inset 0 1px 1px #fff,
-    0 0 0 1px #a6c7dd80;
+    inset 0 1px 1px light-dark(#fff, #8ab6ca55),
+    0 0 0 1px light-dark(#a6c7dd80, #83b8d24d);
   min-width: 145px;
 }
 .button--glass:hover {
-  background: #fff;
+  background: light-dark(#fff, #1b3a4b);
 }
 .hero-panel {
   position: absolute;
@@ -276,12 +280,12 @@ h1 em {
   flex-direction: column;
   padding: 52px 24px 30px;
   border-radius: 38px;
-  background: #e4f3f6;
+  background: light-dark(#e4f3f6, #153547);
   box-shadow:
-    0 22px 48px #24587326,
-    inset 0 0 0 1px #fff,
-    inset 0 2px 5px #fff,
-    inset 0 -1px 4px #81c9db;
+    0 22px 48px light-dark(#24587326, #020c1266),
+    inset 0 0 0 1px light-dark(#fff, #8ab6ca55),
+    inset 0 2px 5px light-dark(#fff, #8ab6ca55),
+    inset 0 -1px 4px light-dark(#81c9db, #4c8b9b);
   isolation: isolate;
   overflow: hidden;
 }
@@ -292,10 +296,16 @@ h1 em {
   z-index: -1;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(135deg, #fff5, transparent 35%, #d4ffe01a 65%, #fff3);
+  background: linear-gradient(
+    135deg,
+    light-dark(#fff5, #82b6da1f),
+    transparent 35%,
+    light-dark(#d4ffe01a, #86dda414) 65%,
+    light-dark(#fff3, #78b9da17)
+  );
   box-shadow:
-    inset 4px 2px 8px #fff8,
-    inset -2px -2px 5px #a0f3bd88;
+    inset 4px 2px 8px light-dark(#fff8, #76adcc24),
+    inset -2px -2px 5px light-dark(#a0f3bd88, #92d3b040);
 }
 .glass-panel:after {
   content: '';
@@ -306,7 +316,7 @@ h1 em {
   height: 220%;
   transform: rotate(25deg);
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, #ffffff65, transparent);
+  background: linear-gradient(90deg, transparent, light-dark(#ffffff65, #a2cee233), transparent);
   animation: glass-light 2.2s cubic-bezier(0.16, 1, 0.3, 1) 1 both;
 }
 .glass-command {
@@ -320,16 +330,20 @@ h1 em {
   border-radius: 24px;
 }
 .glass-command:first-of-type {
-  background: linear-gradient(120deg, #efffe7bd, #ecfcff94);
+  background: linear-gradient(
+    120deg,
+    light-dark(#efffe7bd, #31533cce),
+    light-dark(#ecfcff94, #214759c7)
+  );
   box-shadow:
-    inset 0 0 0 1px #ffffffe0,
-    0 8px 24px #d0ff9155;
+    inset 0 0 0 1px light-dark(#ffffffe0, #b8dff54d),
+    0 8px 24px light-dark(#d0ff9155, #91c8781f);
 }
 .glass-command + .glass-command {
   margin-top: 6px;
 }
 .glass-command:hover {
-  background: #f4fff5d9;
+  background: light-dark(#f4fff5d9, #315145fa);
 }
 .glass-command:focus-visible {
   outline-offset: 1px;
@@ -350,10 +364,10 @@ h1 em {
 .command-description {
   font-size: 12px;
   line-height: 1.4;
-  color: #2c5967;
+  color: light-dark(#2c5967, #a9cbd8);
 }
 .command-icon {
-  color: #104951;
+  color: light-dark(#104951, #8cccdc);
 }
 .command-enter {
   display: grid;
@@ -361,13 +375,17 @@ h1 em {
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: #e6f5f680;
-  box-shadow: inset 0 0 0 1px #689dae55;
-  color: #2c5262;
+  background: light-dark(#e6f5f680, #204453d9);
+  box-shadow: inset 0 0 0 1px light-dark(#689dae55, #7bb6cd50);
+  color: light-dark(#2c5262, #a5cbd9);
 }
 @supports (backdrop-filter: blur(1px)) {
   .glass-panel {
-    background: linear-gradient(125deg, #e8fbff48, #def1f65a);
+    background: linear-gradient(
+      125deg,
+      light-dark(#e8fbff48, #153d54a8),
+      light-dark(#def1f65a, #183a49c4)
+    );
     backdrop-filter: blur(11px) saturate(1.1);
   }
 }
@@ -403,16 +421,21 @@ h2 {
 .lab-experiment {
   position: relative;
   text-align: center;
-  background: linear-gradient(145deg, #e1f2fa, #eefaff 52%, #e2f2ed);
+  background: linear-gradient(
+    145deg,
+    light-dark(#e1f2fa, #15384b),
+    light-dark(#eefaff, #102f40) 52%,
+    light-dark(#e2f2ed, #153c3b)
+  );
   padding: 46px 30px;
   border-radius: 28px;
   min-height: 360px;
   box-shadow:
-    inset 0 1px 2px #fff,
-    0 12px 40px #214f6710;
+    inset 0 1px 2px light-dark(#fff, #8ab6ca55),
+    0 12px 40px light-dark(#214f6710, #020c1226);
 }
 .experiment-mark {
-  color: #3d7b8e;
+  color: light-dark(#3d7b8e, #91c9dd);
   margin-bottom: 18px;
 }
 .lab-experiment h3 {
@@ -427,7 +450,7 @@ h2 {
 }
 .lab-hint {
   font-size: 12px;
-  color: #3c6170;
+  color: light-dark(#3c6170, #a8c8d6);
   margin-top: 20px;
 }
 .lab-explanation > h3 {
@@ -492,7 +515,7 @@ h2 {
   min-height: 32px;
   line-height: 32px;
   margin-bottom: 20px;
-  color: #27647a;
+  color: light-dark(#27647a, #91c9dd);
   font-size: 20px;
   letter-spacing: -0.04em;
 }
@@ -570,13 +593,13 @@ h2 {
   border: 0;
   border-radius: 24px;
   color: var(--ink);
-  background: #eef8fb;
-  box-shadow: 0 28px 100px #0b364760;
+  background: light-dark(#eef8fb, #102b3b);
+  box-shadow: 0 28px 100px light-dark(#0b364760, #02090db3);
   max-height: calc(100dvh - 48px);
   overflow: auto;
 }
 .command-dialog::backdrop {
-  background: #183e526b;
+  background: light-dark(#183e526b, #020c14a6);
   backdrop-filter: blur(7px);
 }
 .dialog-header {
@@ -593,13 +616,13 @@ h2 {
   border: 0;
   display: grid;
   place-items: center;
-  background: #d8eaf1;
+  background: light-dark(#d8eaf1, #244858);
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
 .close-button:hover {
-  background: #c7e1ea;
+  background: light-dark(#c7e1ea, #30596a);
 }
 .dialog-commands {
   list-style: none;
@@ -616,11 +639,11 @@ h2 {
   text-decoration: none;
   padding: 18px 16px;
   border-radius: 14px;
-  background: #fff8;
+  background: light-dark(#fff8, #76adcc24);
 }
 .dialog-command:hover,
 .dialog-command:focus-visible {
-  background: #e3f6cf;
+  background: light-dark(#e3f6cf, #294a38);
   outline-offset: 0;
 }
 .dialog-command .command-title {
@@ -628,7 +651,7 @@ h2 {
 }
 .dialog-instructions {
   font-size: 11px;
-  color: #365e72;
+  color: light-dark(#365e72, #a8c8da);
   margin-top: 24px;
   display: flex;
   align-items: center;
@@ -640,10 +663,10 @@ h2 {
 }
 kbd {
   font: inherit;
-  border: 1px solid #9cbdcc;
+  border: 1px solid light-dark(#9cbdcc, #51798c);
   border-radius: 4px;
   padding: 2px 4px;
-  background: #fff8;
+  background: light-dark(#fff8, #76adcc24);
 }
 body:has(dialog[open]) {
   overflow: hidden;
@@ -675,7 +698,7 @@ body:has(dialog[open]) {
     width: calc(100% - 80px);
   }
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
   }
   .location {
     display: none;
@@ -840,7 +863,13 @@ body:has(dialog[open]) {
     object-position: 64% top;
   }
   .hero-wash {
-    background: linear-gradient(180deg, #e9f7ff78 0%, #f2faff69 38%, transparent 64%, #f6fafc 100%);
+    background: linear-gradient(
+      180deg,
+      light-dark(#e9f7ff78, #071a2ba6) 0%,
+      light-dark(#f2faff69, #0b223866) 38%,
+      transparent 64%,
+      light-dark(#f6fafc, #0b1e2a) 100%
+    );
   }
   .section {
     padding-block: 54px;
@@ -946,17 +975,27 @@ body:has(dialog[open]) {
     width: calc(100% - 40px);
   }
   .site-nav {
-    gap: 12px;
-    font-size: 13px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: start;
+    gap: 24px;
+    font-size: 14px;
   }
   .site-header {
-    gap: 12px;
+    grid-template-columns: 1fr auto;
+    align-content: start;
+    padding-top: 12px;
+    gap: 0;
+  }
+  .header-tools {
+    grid-column: 2;
+    grid-row: 1;
   }
   .hero {
     min-height: 1015px;
   }
   .hero-inner {
-    padding-top: 128px;
+    padding-top: 160px;
   }
   h1 {
     font-size: 46px;
@@ -1053,7 +1092,7 @@ body:has(dialog[open]) {
 .glass-panel-rim {
   position: absolute;
   inset: 49px 23px 25px;
-  border: 1px solid #ffffffa6;
+  border: 1px solid light-dark(#ffffffa6, #9dc6dc52);
   border-radius: 26px;
   pointer-events: none;
 }
@@ -1067,7 +1106,7 @@ body:has(dialog[open]) {
   right: 18px;
   bottom: -3px;
   height: 1px;
-  background: #ffffff80;
+  background: light-dark(#ffffff80, #91bed13b);
 }
 .section-intro {
   position: relative;
@@ -1084,12 +1123,12 @@ body:has(dialog[open]) {
   place-items: center;
   width: 56px;
   height: 56px;
-  border: 1px solid #bfd2dc;
+  border: 1px solid light-dark(#bfd2dc, #365b70);
   border-radius: 50%;
-  background: #ffffff33;
+  background: light-dark(#ffffff33, #81bad917);
 }
 .section-scroll:hover {
-  background: #fff;
+  background: light-dark(#fff, #1b3a4b);
 }
 .external-icon {
   vertical-align: -3px;
@@ -1119,5 +1158,65 @@ body:has(dialog[open]) {
 @media (max-width: 420px) {
   .glass-panel-rim {
     inset: 28px 11px 17px;
+  }
+}
+
+/* Use the authored palette, including when Chrome tries to darken a light override. */
+:root[data-theme='light'] {
+  color-scheme: only light;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --scenery-opacity: 0.55;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --scenery-opacity: 0.55;
+  }
+}
+.header-tools {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+.site-nav {
+  justify-self: center;
+}
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid light-dark(#a6c7dd80, #83b8d24d);
+  background: light-dark(#f0faffb3, #14384acc);
+  backdrop-filter: blur(12px);
+}
+.theme-toggle:hover {
+  background: light-dark(#fff, #244858);
+}
+.theme-toggle:disabled {
+  visibility: hidden;
+}
+@media (max-width: 1250px) {
+  .site-nav {
+    justify-self: end;
+  }
+}
+@media (max-width: 420px) {
+  .site-nav {
+    justify-self: start;
+  }
+}
+@media (forced-colors: active) {
+  .theme-toggle {
+    border-color: ButtonText;
   }
 }

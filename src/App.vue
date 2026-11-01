@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import CommandPanel from './components/CommandPanel.vue'
 import CommandDialog from './components/CommandDialog.vue'
-import { github, labSource } from './content'
+import ThemeToggle from './components/ThemeToggle.vue'
+import { github, labSource, linkedin } from './content'
 </script>
 
 <template>
@@ -12,7 +13,10 @@ import { github, labSource } from './content'
       <a href="#lab">Lab</a><a href="#notes">Notes</a><a href="#about">About</a
       ><a href="#contact">Contact</a>
     </nav>
-    <p class="location">Frontend development · Tuzla, Bosnia &amp; Herzegovina</p>
+    <div class="header-tools">
+      <p class="location">Frontend development · Tuzla, Bosnia &amp; Herzegovina</p>
+      <ThemeToggle />
+    </div>
   </header>
   <main id="main" tabindex="-1">
     <section id="top" class="hero" aria-labelledby="intro-title">
@@ -242,8 +246,8 @@ import { github, labSource } from './content'
           or something in the lab?
         </p>
       </div>
-      <a class="button button--primary" :href="github"
-        >Find me on GitHub
+      <a class="button button--primary" :href="linkedin"
+        >Say hello on LinkedIn
         <svg
           width="20"
           height="20"

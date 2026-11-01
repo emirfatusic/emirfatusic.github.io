@@ -3,8 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="only light" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#eaf5f8" />
+    <script>
+      // Resolve a saved preference before the first paint, without waiting for hydration.
+      try {
+        var savedTheme = localStorage.getItem('emir-theme')
+        var initialDark =
+          savedTheme === 'dark' ||
+          (savedTheme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = initialDark ? 'dark' : 'light'
+        document.querySelector('meta[name="theme-color"]').content = initialDark
+          ? '#0b1e2a'
+          : '#eaf5f8'
+      } catch {
+        // CSS follows the device preference if storage is unavailable or JavaScript is disabled.
+      }
+    </script>
     <title>Emir · Thoughtful interfaces</title>
     <meta
       name="description"

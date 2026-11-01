@@ -14,8 +14,8 @@ test('delivers useful HTML and navigation without JavaScript', async ({ browser,
   await expect(page).toHaveURL(/#about$/)
   await expect(page.getByRole('heading', { name: 'About me.' })).toBeVisible()
   await expect(
-    page.locator('#contact').getByRole('link', { name: 'Find me on GitHub' }),
-  ).toHaveAttribute('href', 'https://github.com/emirfatusic')
+    page.locator('#contact').getByRole('link', { name: 'Say hello on LinkedIn' }),
+  ).toHaveAttribute('href', 'https://www.linkedin.com/in/emir-fatusic')
   await context.close()
 })
 
@@ -52,17 +52,21 @@ test('headlines and command text retain word boundaries and clear link descripti
 })
 
 test('page and open dialog pass automated accessibility checks', async ({ page }) => {
-  await page.goto('/')
-  await expect(page.getByRole('button', { name: 'Open command menu' })).toBeEnabled()
-  const closed = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
-    .analyze()
-  expect(closed.violations).toEqual([])
-  await page.getByRole('button', { name: 'Open command menu' }).click()
-  const open = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
-    .analyze()
-  expect(open.violations).toEqual([])
+  for (const colorScheme of ['light', 'dark'] as const) {
+    await page.emulateMedia({ colorScheme })
+    await page.goto('/')
+    await expect(page.getByRole('button', { name: 'Open command menu' })).toBeEnabled()
+    const closed = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze()
+    expect(closed.violations).toEqual([])
+    await page.getByRole('button', { name: 'Open command menu' }).click()
+    const open = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze()
+    expect(open.violations).toEqual([])
+    await page.keyboard.press('Escape')
+  }
 })
 
 test('remains usable with failed artwork and reduced motion', async ({ page }) => {

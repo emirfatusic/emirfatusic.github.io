@@ -34,6 +34,8 @@ Source links open the actual dialog component on GitHub for syntax highlighting 
 
 The page uses native links, native dialog semantics, local fonts and optimized local artwork. There are no third-party runtime requests.
 
+Contact uses Emir's LinkedIn profile; GitHub remains available for code. Light and dark appearances follow the device preference until the visitor selects an override using the header button. The choice persists locally when storage is available. An early script resolves it before hydration; CSS follows the device preference without JavaScript. Appearance colors use the standard CSS `light-dark()` function.
+
 ## Publishing
 
 `Check portfolio` validates changes without publishing. `Publish portfolio` builds and tests every push to `main`, then deploys that exact static output to GitHub Pages only when its checks pass. It can also be triggered manually. The site is https://emirfatusic.github.io/.

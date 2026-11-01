@@ -1,4 +1,5 @@
 export const github = 'https://github.com/emirfatusic'
+export const linkedin = 'https://www.linkedin.com/in/emir-fatusic'
 export const labSource =
   'https://github.com/emirfatusic/emirfatusic.github.io/blob/main/src/components/CommandDialog.vue'
 

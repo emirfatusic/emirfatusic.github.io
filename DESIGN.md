@@ -1,6 +1,6 @@
 ---
 name: 'Clear Air'
-description: 'A light-first visual system with scenic atmosphere, generous Inter typography and live CSS glass.'
+description: 'A scenic visual system with coordinated light and dark appearances, generous Inter typography and live CSS glass.'
 colors:
   ink: '#082b3b'
   muted: '#3e5f73'
@@ -21,6 +21,12 @@ colors:
   dialog-hover: '#e3f6cf'
   close-surface: '#d8eaf1'
   close-hover: '#c7e1ea'
+  dark-ink: '#e2f1f8'
+  dark-muted: '#a7c1d0'
+  dark-blue: '#86caf1'
+  dark-reading-surface: '#0b1e2a'
+  dark-dialog-surface: '#102b3b'
+  dark-focus: '#b5ef8b'
 typography:
   display:
     fontFamily: 'Inter, Arial, sans-serif'
@@ -139,7 +145,7 @@ components:
 
 Clear Air brings an optimistic sky atmosphere to a light reading canvas. Large, lightly weighted Inter headings and selective italic emphasis give the composition its expressive voice; supporting text stays calm and direct.
 
-Declare `color-scheme: only light` in CSS and document metadata so browser automatic darkening preserves the intended palette, glass, and artwork contrast.
+The appearance follows the device preference until a visitor uses the header's sun/moon button. That choice persists locally when browser storage is available, and an early head script applies it before hydration. CSS uses `light-dark()` for coordinated surface, text, border and material colors; the device preference also works without JavaScript. Dark mode uses deep blue reading surfaces, pale blue type, dimmed scenery and tinted glass, retaining lime actions. An explicit light choice declares `color-scheme: only light` to prevent browser automatic darkening; dark declares `color-scheme: dark`.
 
 Original scenic artwork forms a separate background layer. Semantic text and controls sit above it, while translucent CSS surfaces pick up light through blur, highlights and soft reflections. Beyond the scenic introduction, quieter editorial sections use spacing and fine rules to establish hierarchy.
 
@@ -232,7 +238,7 @@ The experiment container uses a pale three-stop sky-to-mint gradient, rounded co
 
 ### Navigation
 
-The header navigation is an always-visible horizontal row linking to Lab, Notes, About and Contact. Default links omit underlines; hover restores an underline and focus uses the shared outline. Spacing reduces from (34px) to (24px), then (12px) at the narrowest breakpoint, where the text reduces to (13px).
+The header navigation is an always-visible horizontal row linking to Lab, Notes, About and Contact, alongside a 44px appearance button. Default links omit underlines; hover restores an underline and focus uses the shared outline. Spacing reduces from (34px) to (24px). At 420px and below, navigation moves to its own row below the wordmark and appearance control, retaining 14px text and 44px link targets.
 
 ### Glass Command Surface
 
