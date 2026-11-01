@@ -5,6 +5,14 @@ test('follows device appearance until the visitor chooses an override', async ({
   await page.goto('/')
   await expect(page.getByRole('button', { name: 'Use dark appearance' })).toBeEnabled()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  // Exercise a visible, painted page: WebKit can defer media events in a background window.
+  await page.bringToFront()
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      ),
+  )
   await page.emulateMedia({ colorScheme: 'dark' })
   await expect(page.getByRole('button', { name: 'Use light appearance' })).toBeEnabled()
   await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(11, 30, 42)')
