@@ -13,6 +13,7 @@
   font-display: swap;
 }
 :root {
+  color-scheme: only light;
   font-family: Inter, Arial, sans-serif;
   color: #082b3b;
   background: #f6fafc;

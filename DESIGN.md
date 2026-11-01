@@ -139,6 +139,8 @@ components:
 
 Clear Air brings an optimistic sky atmosphere to a light reading canvas. Large, lightly weighted Inter headings and selective italic emphasis give the composition its expressive voice; supporting text stays calm and direct.
 
+Declare `color-scheme: only light` in CSS and document metadata so browser automatic darkening preserves the intended palette, glass, and artwork contrast.
+
 Original scenic artwork forms a separate background layer. Semantic text and controls sit above it, while translucent CSS surfaces pick up light through blur, highlights and soft reflections. Beyond the scenic introduction, quieter editorial sections use spacing and fine rules to establish hierarchy.
 
 **Key Characteristics:**
