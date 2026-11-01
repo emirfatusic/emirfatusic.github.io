@@ -12,12 +12,43 @@ test('delivers useful HTML and navigation without JavaScript', async ({ browser,
     .getByRole('link', { name: /About Emir/ })
     .click()
   await expect(page).toHaveURL(/#about$/)
-  await expect(page.getByRole('heading', { name: 'A little about me.' })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Say hello on GitHub' })).toHaveAttribute(
-    'href',
-    'https://github.com/emirfatusic',
-  )
+  await expect(page.getByRole('heading', { name: 'About me.' })).toBeVisible()
+  await expect(
+    page.locator('#contact').getByRole('link', { name: 'Find me on GitHub' }),
+  ).toHaveAttribute('href', 'https://github.com/emirfatusic')
   await context.close()
+})
+
+test('headlines and command text retain word boundaries and clear link descriptions', async ({
+  page,
+}) => {
+  await page.goto('/')
+  const headline = page.getByRole('heading', { level: 1 })
+  expect((await headline.textContent())?.replace(/\s+/g, ' ').trim()).toBe(
+    'Interfaces with a little more feeling.',
+  )
+  const panel = page.getByRole('navigation', { name: 'Explore the portfolio' })
+  const labLink = panel.getByRole('link', { name: 'Explore the lab', exact: true })
+  await expect(labLink).toHaveAccessibleDescription('An interface, up close')
+  expect((await labLink.textContent())?.replace(/\s+/g, ' ').trim()).toBe(
+    'Explore the lab An interface, up close',
+  )
+  await expect(
+    page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link'),
+  ).toHaveText(['Lab', 'Notes', 'About', 'Contact'])
+  await expect(page.locator('#notes').getByRole('heading', { level: 2 })).toHaveText('Notes.')
+  await expect(page.getByRole('link', { name: 'Try the command menu' })).toHaveAttribute(
+    'href',
+    '#lab-demo',
+  )
+  await page.getByRole('button', { name: 'Open command menu' }).click()
+  const notesLink = page
+    .getByRole('dialog')
+    .getByRole('link', { name: 'Read the notes', exact: true })
+  await expect(notesLink).toHaveAccessibleDescription('The thinking underneath')
+  expect((await notesLink.textContent())?.replace(/\s+/g, ' ').trim()).toBe(
+    'Read the notes The thinking underneath',
+  )
 })
 
 test('page and open dialog pass automated accessibility checks', async ({ page }) => {

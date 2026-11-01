@@ -1,11 +1,12 @@
 export const github = 'https://github.com/emirfatusic'
-export const labSource = '/source/command-menu.vue.txt'
+export const labSource =
+  'https://github.com/emirfatusic/emirfatusic.github.io/blob/main/src/components/CommandDialog.vue'
 
 export const commands = [
   {
     id: 'lab',
     label: 'Explore the lab',
-    description: 'A small interface, up close',
+    description: 'An interface, up close',
     icon: 'M3 3h6v6H3z M15 3h6v6h-6z M3 15h6v6H3z M15 15h6v6h-6z',
   },
   {
@@ -22,4 +23,22 @@ export const commands = [
   },
 ] as const
 
-export type Command = (typeof commands)[number]
+export const dialogCommands = [
+  { ...commands[1], href: '#notes' },
+  {
+    id: 'contact',
+    href: '#contact',
+    label: 'Get in touch',
+    description: 'Find my contact details',
+    icon: 'M3 5h18v14H3z M3 5l9 7 9-7',
+  },
+  {
+    id: 'source',
+    href: labSource,
+    label: 'View the source',
+    description: 'Explore this component on GitHub',
+    icon: 'm8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18',
+  },
+] as const
+
+export type DialogCommand = (typeof dialogCommands)[number]

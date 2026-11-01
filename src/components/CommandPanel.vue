@@ -5,7 +5,14 @@ import { commands } from '../content'
 <template>
   <nav class="glass-panel" aria-label="Explore the portfolio">
     <span class="glass-panel-rim" aria-hidden="true"></span>
-    <a v-for="command in commands" :key="command.id" :href="`#${command.id}`" class="glass-command">
+    <a
+      v-for="command in commands"
+      :key="command.id"
+      :href="`#${command.id}`"
+      :aria-labelledby="`panel-${command.id}-label`"
+      :aria-describedby="`panel-${command.id}-description`"
+      class="glass-command"
+    >
       <svg
         class="command-icon"
         width="25"
@@ -21,8 +28,11 @@ import { commands } from '../content'
         <path :d="command.icon" />
       </svg>
       <span class="command-copy"
-        ><span class="command-title">{{ command.label }}</span
-        ><span class="command-description">{{ command.description }}</span></span
+        ><span :id="`panel-${command.id}-label`" class="command-title">{{ command.label }}</span
+        >{{ ' '
+        }}<span :id="`panel-${command.id}-description`" class="command-description">{{
+          command.description
+        }}</span></span
       >
       <span class="command-enter" aria-hidden="true"
         ><svg

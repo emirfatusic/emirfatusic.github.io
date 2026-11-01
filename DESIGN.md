@@ -232,7 +232,7 @@ The experiment container uses a pale three-stop sky-to-mint gradient, rounded co
 
 ### Navigation
 
-The header navigation is an always-visible horizontal row of understated links. Default links omit underlines; hover restores an underline and focus uses the shared outline. Spacing reduces from (34px) to (24px), then (19px) at the narrowest breakpoint.
+The header navigation is an always-visible horizontal row linking to Lab, Notes, About and Contact. Default links omit underlines; hover restores an underline and focus uses the shared outline. Spacing reduces from (34px) to (24px), then (12px) at the narrowest breakpoint, where the text reduces to (13px).
 
 ### Glass Command Surface
 
@@ -242,7 +242,7 @@ The signature surface contains three real section links with inline line icons, 
 
 A native dialog presents a solid pale panel, rounded command links, circular close control, and compact key hints. Rows use a translucent white rest surface and a pale green hover/focus surface. The panel width, padding and shape are tokenized; maximum height is the dynamic viewport minus (48px). Its backdrop tints and blurs the page beneath it.
 
-Arrow keys, Home and End move between command links. Tab cycles through the dialog controls. Dismissal returns focus to the opener; selecting a destination moves focus to its heading. Reduced-motion preferences also affect that navigation scroll. Sidecar snippets illustrate the visual states; runtime keyboard and modal behavior remains in the Vue implementation.
+Arrow keys, Home and End move between command links. Tab cycles through the dialog controls. Dismissal returns focus to the opener; selecting Notes or Contact moves focus to its heading. The Source action follows an ordinary GitHub link. Reduced-motion preferences also affect section navigation scroll. Link titles and descriptions have separate accessible associations and explicit word boundaries. Sidecar snippets illustrate the visual states; runtime keyboard and modal behavior remains in the Vue implementation.
 
 ## Do's and Don'ts
 

@@ -28,9 +28,9 @@ Playwright exercises Chromium, Firefox, WebKit and mobile-sized Chromium/WebKit.
 
 ## Interface lab
 
-The hero and dialog share one typed command collection. The dialog owns keyboard navigation and its close lifecycle. Selecting a command closes the dialog and focuses the destination heading; dismissal restores the opener.
+The hero offers section navigation. The dialog has typed actions for Notes, Contact and the component source. It owns keyboard navigation and its close lifecycle. Selecting a section closes the dialog and focuses the destination heading; dismissal restores the opener. The source action is an ordinary GitHub link.
 
-The production build includes the actual dialog component as `/source/command-menu.vue.txt`, so the lab's source can be inspected directly from the site.
+Source links open the actual dialog component on GitHub for syntax highlighting and history. The production build also includes a plain-text copy at `/source/command-menu.vue.txt`.
 
 The page uses native links, native dialog semantics, local fonts and optimized local artwork. There are no third-party runtime requests.
 

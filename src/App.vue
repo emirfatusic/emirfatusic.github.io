@@ -9,7 +9,8 @@ import { github, labSource } from './content'
   <header class="site-header wrap">
     <a class="wordmark" href="#top" aria-label="Emir, back to top">Emir.</a>
     <nav class="site-nav" aria-label="Main navigation">
-      <a href="#lab">Lab</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <a href="#lab">Lab</a><a href="#notes">Notes</a><a href="#about">About</a
+      ><a href="#contact">Contact</a>
     </nav>
     <p class="location">Frontend development · Tuzla, Bosnia &amp; Herzegovina</p>
   </header>
@@ -40,7 +41,7 @@ import { github, labSource } from './content'
       <div class="hero-inner wrap">
         <div class="hero-copy">
           <h1 id="intro-title">
-            <span>Interfaces with</span><span>a little more <em>feeling.</em></span>
+            <span>Interfaces with</span>{{ ' ' }}<span>a little more <em>feeling.</em></span>
           </h1>
           <p class="hero-intro">
             I build thoughtful interfaces with Vue, TypeScript,<br class="desktop-break" />
@@ -111,8 +112,8 @@ import { github, labSource } from './content'
         <div class="lab-explanation">
           <h3>Meet the command menu.</h3>
           <p>
-            A small study in what happens between an intention and an action: where focus starts,
-            how the keyboard moves, and where you land.
+            A study in what happens between an intention and an action: where focus starts, how the
+            keyboard moves, and where you land.
           </p>
           <ul class="detail-list">
             <li><span>Built on the platform</span><span>Native dialog, ordinary links.</span></li>
@@ -141,8 +142,8 @@ import { github, labSource } from './content'
 
     <section id="notes" class="notes section wrap" aria-labelledby="notes-title">
       <div class="notes-heading">
-        <h2 id="notes-title" tabindex="-1">Under the surface.</h2>
-        <p>The small decisions that make the whole thing work.</p>
+        <h2 id="notes-title" tabindex="-1">Notes.</h2>
+        <p>Under the surface: the decisions that make the whole thing work.</p>
       </div>
       <div class="notes-grid">
         <article>
@@ -189,7 +190,7 @@ import { github, labSource } from './content'
             <circle cx="17" cy="11" r="3" fill="currentColor" />
             <circle cx="26" cy="7" r="3" fill="currentColor" />
           </svg>
-          <h3>A little motion. On your terms.</h3>
+          <h3>Motion. On your terms.</h3>
           <p>
             Light adds a quiet moment to the glass. When reduced motion is preferred, it stays
             still. The content and controls never wait for an animation to finish.
@@ -200,7 +201,7 @@ import { github, labSource } from './content'
 
     <section id="about" class="about section wrap" aria-labelledby="about-title">
       <div>
-        <h2 id="about-title" tabindex="-1">A little about me.</h2>
+        <h2 id="about-title" tabindex="-1">About me.</h2>
         <p class="about-lead">
           I’m Emir, a software developer<br class="desktop-break" />
           based in Tuzla.
@@ -210,7 +211,7 @@ import { github, labSource } from './content'
         <p>
           I work with Vue, TypeScript, and Electron. I’m drawn to the parts of frontend development
           where structure and experience meet: readable architecture, accessible interactions, and
-          small details that make software feel right.
+          details that make software feel right.
         </p>
         <p>
           Outside the editor, it’s cars, loud guitars, and a soft spot for the optimistic digital
@@ -242,7 +243,7 @@ import { github, labSource } from './content'
         </p>
       </div>
       <a class="button button--primary" :href="github"
-        >Say hello on GitHub
+        >Find me on GitHub
         <svg
           width="20"
           height="20"
@@ -258,7 +259,7 @@ import { github, labSource } from './content'
   </main>
   <footer class="footer wrap">
     <a class="wordmark" href="#top" aria-label="Emir, back to top">Emir.</a>
-    <p>Made with care, and a little feeling.</p>
+    <p>Made with care in Tuzla.</p>
     <a :href="labSource"
       >Lab source
       <svg

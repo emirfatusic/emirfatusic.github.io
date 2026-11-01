@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { commands, type Command } from '../content'
+import { dialogCommands, type DialogCommand } from '../content'
 
 const ready = ref(false)
 const dialog = ref<HTMLDialogElement | null>(null)
 let opener: HTMLElement | null = null
-let destination: Command['id'] | null = null
+let destination: string | null = null
 
 onMounted(() => {
   ready.value = true
@@ -19,8 +19,13 @@ function open(event: MouseEvent) {
   dialog.value.querySelector<HTMLAnchorElement>('a')?.focus()
 }
 
-function activate(id: Command['id']) {
-  destination = id
+function activate(command: DialogCommand, event: MouseEvent) {
+  if (!command.href.startsWith('#')) {
+    dismiss()
+    return
+  }
+  event.preventDefault()
+  destination = command.id
   dialog.value?.close('navigate')
 }
 
@@ -140,8 +145,13 @@ function navigate(event: KeyboardEvent) {
       </button>
     </div>
     <ul class="dialog-commands">
-      <li v-for="command in commands" :key="command.id">
-        <a class="dialog-command" :href="`#${command.id}`" @click.prevent="activate(command.id)"
+      <li v-for="command in dialogCommands" :key="command.id">
+        <a
+          class="dialog-command"
+          :href="command.href"
+          :aria-labelledby="`dialog-${command.id}-label`"
+          :aria-describedby="`dialog-${command.id}-description`"
+          @click="activate(command, $event)"
           ><svg
             class="command-icon"
             width="24"
@@ -156,8 +166,13 @@ function navigate(event: KeyboardEvent) {
           >
             <path :d="command.icon" /></svg
           ><span class="command-copy"
-            ><span class="command-title">{{ command.label }}</span
-            ><span class="command-description">{{ command.description }}</span></span
+            ><span :id="`dialog-${command.id}-label`" class="command-title">{{
+              command.label
+            }}</span
+            >{{ ' '
+            }}<span :id="`dialog-${command.id}-description`" class="command-description">{{
+              command.description
+            }}</span></span
           ><svg
             width="18"
             height="18"

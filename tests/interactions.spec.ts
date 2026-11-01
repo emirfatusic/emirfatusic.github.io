@@ -56,9 +56,8 @@ test('supports navigation keys, focus containment, dismissal and repeated openin
 test('each command closes the dialog and focuses the requested heading', async ({ page }) => {
   await page.goto('/')
   for (const [label, id] of [
-    ['Explore the lab', 'lab'],
     ['Read the notes', 'notes'],
-    ['About Emir', 'about'],
+    ['Get in touch', 'contact'],
   ]) {
     await page.getByRole('button', { name: 'Open command menu' }).click()
     const dialog = page.getByRole('dialog')
@@ -68,6 +67,22 @@ test('each command closes the dialog and focuses the requested heading', async (
     await expect(page).toHaveURL(new RegExp(`#${id}$`))
     await expect(page.locator(`#${id}-title`)).toBeFocused()
   }
+})
+
+test('the source command follows its ordinary GitHub link', async ({ page }) => {
+  const source =
+    'https://github.com/emirfatusic/emirfatusic.github.io/blob/main/src/components/CommandDialog.vue'
+  await page.route(source, (route) =>
+    route.fulfill({ contentType: 'text/html', body: '<h1>Component source</h1>' }),
+  )
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Open command menu' }).click()
+  const link = page.getByRole('dialog').getByRole('link', { name: 'View the source', exact: true })
+  await expect(link).toHaveAttribute('href', source)
+  await link.focus()
+  await page.keyboard.press('Enter')
+  await expect(page).toHaveURL(source)
+  await expect(page.getByRole('heading', { name: 'Component source' })).toBeVisible()
 })
 
 test('keeps focus safe when rapidly reopening after a close', async ({ page }) => {
