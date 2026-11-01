@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import CommandPanel from './components/CommandPanel.vue'
-import CommandDialog from './components/CommandDialog.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
 import { github, labSource, linkedin } from './content'
 </script>
@@ -73,14 +72,12 @@ import { github, labSource, linkedin } from './content'
 
     <section id="lab" class="lab section wrap" aria-labelledby="lab-title">
       <div class="section-intro">
-        <h2 id="lab-title" tabindex="-1">
-          Small interface.<br /><span>Considered decisions.</span>
-        </h2>
+        <h2 id="lab-title" tabindex="-1">Timing meets<br /><span>interface craft.</span></h2>
         <p>
-          One focused experiment exploring interaction on the modern web. Built with Vue and
-          TypeScript, with attention to clarity, accessibility, and the details underneath.
+          A qualifying-lap workbench, built with Vue and TypeScript. Real historical data, linked
+          traces, and the decisions behind a reliable interface.
         </p>
-        <a class="section-scroll" href="#lab-demo" aria-label="Try the command menu"
+        <a class="section-scroll" href="/lab/lap-compare/" aria-label="Open the lap workbench"
           ><svg
             width="22"
             height="22"
@@ -90,7 +87,7 @@ import { github, labSource, linkedin } from './content'
             stroke-width="1.4"
             aria-hidden="true"
           >
-            <path d="M12 5v14m-6-6 6 6 6-6" /></svg
+            <path d="M5 12h14m-6-6 6 6-6 6" /></svg
         ></a>
       </div>
       <div class="lab-workbench">
@@ -104,42 +101,33 @@ import { github, labSource, linkedin } from './content'
               stroke="currentColor"
               stroke-width="1.2"
             >
-              <rect x="3" y="5" width="18" height="14" rx="3" />
-              <path d="M7 10h4m-4 4h10m-3-4h3" />
+              <path d="M3 18V6m0 12h18M5 14l3-5 4 4 4-7 4 4" />
             </svg>
           </div>
-          <h3 id="lab-demo" tabindex="-1">
-            A familiar interaction,<br />built from the foundations.
-          </h3>
-          <CommandDialog />
+          <h3>Two qualifying laps.<br />One closer look.</h3>
+          <p class="lap-preview-times">Sainz 1:30.984 · Russell 1:31.056</p>
+          <a class="button button--primary" href="/lab/lap-compare/">Compare the laps</a>
         </div>
         <div class="lab-explanation">
-          <h3>Meet the command menu.</h3>
+          <h3>Meet the lap workbench.</h3>
           <p>
-            A study in what happens between an intention and an action: where focus starts, how the
-            keyboard moves, and where you land.
+            Compare reported sector times, explore linked telemetry and inspect the samples beneath
+            the curves. A motorsport interest, turned into a frontend problem.
           </p>
           <ul class="detail-list">
-            <li><span>Built on the platform</span><span>Native dialog, ordinary links.</span></li>
             <li>
-              <span>Made for more than a mouse</span><span>Keyboard, touch, and clear focus.</span>
+              <span>Data with context</span><span>OpenF1 historical laps, explicit sources.</span>
             </li>
-            <li><span>Open to a closer look</span><span>Real source. Explicit tradeoffs.</span></li>
+            <li>
+              <span>State you can trust</span
+              ><span>Validated results, cancellation and recovery.</span>
+            </li>
+            <li>
+              <span>More than a chart</span
+              ><span>Keyboard controls, raw data and shareable views.</span>
+            </li>
           </ul>
-          <a class="text-link" :href="labSource"
-            >View the source
-            <svg
-              class="external-icon"
-              width="17"
-              height="17"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              aria-hidden="true"
-            >
-              <path d="M7 17 17 7M7 7h10v10" /></svg
-          ></a>
+          <a class="text-link" :href="labSource">View the source</a>
         </div>
       </div>
     </section>
@@ -151,11 +139,11 @@ import { github, labSource, linkedin } from './content'
       </div>
       <div class="notes-grid">
         <article>
-          <span class="note-symbol" aria-hidden="true">&lt;dialog&gt;</span>
+          <span class="note-symbol" aria-hidden="true">&lt;input&gt;</span>
           <h3>Start with what’s already there.</h3>
           <p>
-            The browser owns modal semantics and makes the rest of the page inert. Vue connects the
-            actions. A component library would add more machinery than this experiment needs.
+            Native selects, a range input and an ordinary table carry the interaction. Vue connects
+            the data. The traces are SVG, with no chart library between the samples and the screen.
           </p>
         </article>
         <article>
@@ -172,10 +160,11 @@ import { github, labSource, linkedin } from './content'
             <rect x="1" y="5" width="34" height="20" rx="4" />
             <path d="M8 12h4m5 0h4m5 0h3M8 18h20" />
           </svg>
-          <h3>Focus has somewhere to go.</h3>
+          <h3>A result keeps its identity.</h3>
           <p>
-            Closing returns you to the button that opened the menu. Choosing a section moves focus
-            to its heading instead. The interaction ends where the intention leads.
+            Requested drivers and displayed results have separate state. A slow or failed request
+            keeps the previous comparison correctly named. A late response cannot replace a newer
+            one.
           </p>
         </article>
         <article>
@@ -194,10 +183,10 @@ import { github, labSource, linkedin } from './content'
             <circle cx="17" cy="11" r="3" fill="currentColor" />
             <circle cx="26" cy="7" r="3" fill="currentColor" />
           </svg>
-          <h3>Motion. On your terms.</h3>
+          <h3>Know what the data can say.</h3>
           <p>
-            Light adds a quiet moment to the glass. When reduced motion is preferred, it stays
-            still. The content and controls never wait for an animation to finish.
+            Reported timing and estimated progress are different kinds of evidence. Missing samples
+            stay missing, and the interface explains where interpretation should stop.
           </p>
         </article>
       </div>

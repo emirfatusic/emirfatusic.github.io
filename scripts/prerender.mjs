@@ -1,17 +1,22 @@
-import { readFile, writeFile, rm, mkdir, copyFile } from 'node:fs/promises'
+import { readFile, writeFile, rm } from 'node:fs/promises'
 import { renderToString } from 'vue/server-renderer'
-import { createPortfolioApp } from '../.ssr-build/main.js'
-
-const template = await readFile('dist/index.html', 'utf8')
+import { createPortfolioApp, createLapApp } from '../.ssr-build/prerender-entry.js'
 const marker = '<div id="app"></div>'
-if (template.split(marker).length !== 2)
-  throw new Error('Expected exactly one app root in the client template.')
-const html = await renderToString(createPortfolioApp())
-if (!html.includes('Interfaces with') || !html.includes('id="contact"')) {
-  throw new Error('Prerendered page is missing required content.')
+for (const [path, factory, required] of [
+  ['dist/index.html', createPortfolioApp, 'id="contact"'],
+  ['dist/lab/lap-compare/index.html', createLapApp, 'Carlos Sainz'],
+]) {
+  const template = await readFile(path, 'utf8')
+  if (template.split(marker).length !== 2) throw new Error('Expected exactly one app root: ' + path)
+  const html = await renderToString(factory())
+  if (!html.includes(required)) throw new Error('Prerendered content missing: ' + path)
+  await writeFile(path, template.replace(marker, `<div id="app">${html}</div>`))
 }
-await writeFile('dist/index.html', template.replace(marker, `<div id="app">${html}</div>`))
-await mkdir('dist/source', { recursive: true })
-await copyFile('src/components/CommandDialog.vue', 'dist/source/command-menu.vue.txt')
+const { recordings } = JSON.parse(await readFile('src/lap/snapshot.json', 'utf8'))
+const rows = ['driver,lap,elapsed_seconds,speed_kmh,throttle_percent,brake_binary,gear']
+for (const r of recordings) for (const s of r.samples) rows.push([r.name, r.lap, ...s].join(','))
+await writeFile('dist/lab/lap-compare/default-recordings.csv', rows.join('\n') + '\n')
 await rm('.ssr-build', { recursive: true, force: true })
-console.log('Prerendered portfolio HTML. Only static files are deployed.')
+console.log(
+  'Prerendered portfolio and lap workbench. Static files only; no provider requests at build time.',
+)

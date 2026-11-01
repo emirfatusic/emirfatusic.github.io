@@ -1,6 +1,6 @@
 # Lap workbench design preview
 
-[lap-workbench.html](lap-workbench.html) is an interactive design study for a future `/lab/lap-compare/` page. It extends the portfolio's Clear Air system, documented in [DESIGN.md](../DESIGN.md).
+[lap-workbench.html](lap-workbench.html) is an interactive design study for the `/lab/lap-compare/` page. It extends the portfolio's Clear Air system, documented in [DESIGN.md](../DESIGN.md).
 
 The study is separate from the production application and is not included in its Vite build. It demonstrates the layout, both appearances, sector focus, a linked cursor, driver-role swapping and a paginated data alternative. The review toolbar explicitly simulates loading, provider failure and partial telemetry. It does not make API requests or demonstrate a completed network/cache implementation.
 
@@ -38,4 +38,4 @@ The exact bounded `car_data` request URL is preserved with each embedded recordi
 - The data table exposes all 681 recorded samples, ordered by estimated progress and paginated in groups of 20. The partial-data demonstration omits the simulated missing samples rather than inventing replacement values.
 - Query telemetry by each lap's own start and duration. The session's nominal end time can precede valid late lap records.
 
-Production networking, dataset selection, alignment quality thresholds, URL integration and server-rendered fallbacks still require an implementation plan. The design study does not certify those behaviors.
+The production implementation now lives in `src/lap/`, with its networking, cache, quality guards, URL state and server-rendered fallback documented in the repository README. This preserved design study continues to simulate its provider states; it does not certify production behavior.

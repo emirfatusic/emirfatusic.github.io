@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#eaf5f8" />
+    <script>
+      // Resolve a saved preference before the first paint, without waiting for hydration.
+      try {
+        var savedTheme = localStorage.getItem('emir-theme')
+        var initialDark =
+          savedTheme === 'dark' ||
+          (savedTheme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = initialDark ? 'dark' : 'light'
+        document.querySelector('meta[name="theme-color"]').content = initialDark
+          ? '#0b1e2a'
+          : '#eaf5f8'
+      } catch {
+        // CSS follows the device preference if storage is unavailable or JavaScript is disabled.
+      }
+    </script>
+    <title>Lap workbench · Emir</title>
+    <meta
+      name="description"
+      content="Compare historical Singapore qualifying laps with reported timings and linked OpenF1 telemetry."
+    />
+    <link rel="canonical" href="https://emirfatusic.github.io/lab/lap-compare/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Lap workbench · Emir" />
+    <meta
+      property="og:description"
+      content="Two qualifying laps. Reported sector times, linked recorded traces, and an inspectable implementation."
+    />
+    <meta property="og:url" content="https://emirfatusic.github.io/lab/lap-compare/" />
+    <meta property="og:image" content="https://emirfatusic.github.io/assets/social-preview.png" />
+    <meta property="og:image:alt" content="Emir. Interfaces with a little more feeling." />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/lap/main.ts"></script>
+  </body>
+</html>

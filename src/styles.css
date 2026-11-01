@@ -1220,3 +1220,10 @@ body:has(dialog[open]) {
     border-color: ButtonText;
   }
 }
+
+.lap-preview-times {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}

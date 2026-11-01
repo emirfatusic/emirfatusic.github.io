@@ -6,7 +6,10 @@ test('delivers useful HTML and navigation without JavaScript', async ({ browser,
   const page = await context.newPage()
   await page.goto(baseURL!)
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Interfaces with')
-  await expect(page.getByRole('button', { name: 'Open command menu' })).toBeDisabled()
+  await expect(page.getByRole('link', { name: 'Compare the laps', exact: true })).toHaveAttribute(
+    'href',
+    '/lab/lap-compare/',
+  )
   await page
     .getByRole('navigation', { name: 'Explore the portfolio' })
     .getByRole('link', { name: /About Emir/ })
@@ -37,35 +40,21 @@ test('headlines and command text retain word boundaries and clear link descripti
     page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link'),
   ).toHaveText(['Lab', 'Notes', 'About', 'Contact'])
   await expect(page.locator('#notes').getByRole('heading', { level: 2 })).toHaveText('Notes.')
-  await expect(page.getByRole('link', { name: 'Try the command menu' })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'Open the lap workbench' })).toHaveAttribute(
     'href',
-    '#lab-demo',
-  )
-  await page.getByRole('button', { name: 'Open command menu' }).click()
-  const notesLink = page
-    .getByRole('dialog')
-    .getByRole('link', { name: 'Read the notes', exact: true })
-  await expect(notesLink).toHaveAccessibleDescription('The thinking underneath')
-  expect((await notesLink.textContent())?.replace(/\s+/g, ' ').trim()).toBe(
-    'Read the notes The thinking underneath',
+    '/lab/lap-compare/',
   )
 })
 
-test('page and open dialog pass automated accessibility checks', async ({ page }) => {
+test('homepage passes automated accessibility checks', async ({ page }) => {
   for (const colorScheme of ['light', 'dark'] as const) {
     await page.emulateMedia({ colorScheme })
     await page.goto('/')
-    await expect(page.getByRole('button', { name: 'Open command menu' })).toBeEnabled()
+    await expect(page.getByRole('button', { name: /Use (light|dark) appearance/ })).toBeEnabled()
     const closed = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze()
     expect(closed.violations).toEqual([])
-    await page.getByRole('button', { name: 'Open command menu' }).click()
-    const open = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
-      .analyze()
-    expect(open.violations).toEqual([])
-    await page.keyboard.press('Escape')
   }
 })
 
@@ -84,8 +73,7 @@ test('remains usable with failed artwork and reduced motion', async ({ page }) =
     .getByRole('link', { name: /Explore the lab/ })
     .click()
   await expect(page).toHaveURL(/#lab$/)
-  await page.getByRole('button', { name: 'Open command menu' }).click()
-  await expect(page.getByRole('dialog')).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Compare the laps', exact: true })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
   )
@@ -95,17 +83,11 @@ test('has no horizontal overflow at common widths and a zoom-sized viewport', as
   for (const width of [1536, 1280, 768, 390, 320]) {
     await page.setViewportSize({ width, height: 900 })
     await page.goto('/')
-    await expect(page.getByRole('button', { name: 'Open command menu' })).toBeEnabled()
+    await expect(page.getByRole('button', { name: /Use (light|dark) appearance/ })).toBeEnabled()
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
       `${width}px page width`,
     ).toBe(true)
-    await page.getByRole('button', { name: 'Open command menu' }).click()
-    expect(
-      await page.getByRole('dialog').evaluate((el) => el.scrollWidth <= el.clientWidth),
-      `${width}px dialog width`,
-    ).toBe(true)
-    await page.keyboard.press('Escape')
   }
 })
 

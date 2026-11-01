@@ -16,6 +16,7 @@ const mime = {
   '.txt': 'text/plain; charset=utf-8',
   '.xml': 'application/xml',
   '.json': 'application/json',
+  '.csv': 'text/csv; charset=utf-8',
 }
 const server = createServer(async (req, res) => {
   try {
@@ -25,10 +26,17 @@ const server = createServer(async (req, res) => {
     }
     const url = new URL(req.url, 'http://localhost')
     const pathname = decodeURIComponent(url.pathname)
-    const file = resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname))
+    let file = resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname))
     if (!file.startsWith(root + sep)) {
       res.writeHead(403).end()
       return
+    }
+    if ((await stat(file)).isDirectory()) {
+      if (!url.pathname.endsWith('/')) {
+        res.writeHead(308, { Location: url.pathname + '/' + url.search }).end()
+        return
+      }
+      file = resolve(file, 'index.html')
     }
     if (!(await stat(file)).isFile()) {
       res.writeHead(404).end('Not found')

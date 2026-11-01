@@ -6,11 +6,19 @@ try {
   for (const [label, width, height, target] of [
     ['desktop', 1440, 1000, 750],
     ['mobile', 390, 844, 500],
+    ['workbench desktop', 1440, 1000, 750],
+    ['workbench mobile', 390, 844, 500],
   ]) {
     const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 })
-    await page.goto(process.env.PREVIEW_URL || 'http://127.0.0.1:4173', {
-      waitUntil: 'networkidle',
-    })
+    await page.goto(
+      new URL(
+        label.startsWith('workbench') ? '/lab/lap-compare/' : '/',
+        process.env.PREVIEW_URL || 'http://127.0.0.1:4173',
+      ).href,
+      {
+        waitUntil: 'networkidle',
+      },
+    )
     await page.evaluate(() => document.fonts.ready)
     const sizes = await page.evaluate(() => {
       const navigation = performance.getEntriesByType('navigation')[0]

@@ -219,7 +219,9 @@ The appearance follows the device preference until a visitor uses the header's s
 
 Original scenic artwork forms a separate background layer. Semantic text and controls sit above it, while translucent CSS surfaces pick up light through blur, highlights and soft reflections. Beyond the scenic introduction, quieter editorial sections use spacing and fine rules to establish hierarchy.
 
-The lap workbench in `design/lap-workbench.html` applies this identity at a denser product scale: compact Inter headings, aligned measurements and opaque plotting surfaces, with a single frosted selection bar. It is a high-fidelity interactive design prototype, separate from the production application. Its embedded historical sample and deliberately simulated loading, provider-failure and partial-data states demonstrate visual behavior; they do not implement production routing, live API requests or network/cache resilience.
+The production lap workbench at `/lab/lap-compare/` applies this identity at a denser product scale: compact Inter headings, aligned measurements and opaque plotting surfaces, with a single frosted selection bar. Its implementation lives in `src/lap/`; the portfolio and workbench render HTML at build time and hydrate in the browser. The saved historical pair opens without a provider request; uncached driver choices load historical OpenF1 data. Data acquisition and validation stay in separate modules, outside the visual components.
+
+The original interactive design study remains at `design/lap-workbench.html`, outside the production build. Its review toolbar simulates provider states with embedded data. Keep that study's presentation behavior distinct from the production workbench's real requests, quality guards and recovery. The retired command dialog's tokens and sidecar specimens remain as historical component references; the active homepage uses ordinary section links and a workbench launcher.
 
 **Key Characteristics:**
 
@@ -248,7 +250,7 @@ Cool blue ink and pale sky surfaces support a small, luminous lime action palett
 - **Pale Blue Rule** (`line`): separation between the quieter sections and footer.
 - **White Light** (`white`): inset highlights and the secondary action's hover surface.
 - **Glass Veil** (`glass-button`) and **Solid Glass Fallback** (`glass-fallback`): the translucent secondary button and the panel's no-filter fallback, respectively.
-- **Dialog Mist** (`dialog-surface`), **Command Highlight** (`dialog-hover`), and the close-control surface pair: localized dialog surfaces and interactive states.
+- **Dialog Mist** (`dialog-surface`), **Command Highlight** (`dialog-hover`), and the close-control surface pair: retained historical dialog surfaces and interactive states, still represented in the stylesheet and sidecar specimens.
 - **Deep Teal Focus** (`focus`): visible keyboard outlines across controls.
 
 ### Workbench-local roles
@@ -257,7 +259,7 @@ The `workbench-*` colors extend this surface only; they preserve the homepage pa
 
 - **Reference Blue** (`workbench-series-a`) and **Comparison Green** (`workbench-series-b`): source-role colors, paired with solid and dashed strokes throughout legends, plots and readings. Swapping drivers changes their role assignments; these are not team colors. Forced-colors mode replaces both strokes with CanvasText while retaining their dash distinction.
 - **Selected Mint** (`workbench-selection`) and **Selected Green Ink** (`workbench-selection-ink`): pressed sectors and their text. Selecting a sector zooms the plots to its estimated-progress range.
-- **Amber Notice Ink** (`workbench-warning`) and **Amber Notice Ground** (`workbench-warning-surface`): the prototype's simulated loading, failure and missing-data notices. Readable explanatory text carries the state alongside color.
+- **Amber Notice Ink** (`workbench-warning`) and **Amber Notice Ground** (`workbench-warning-surface`): production loading, provider-error and unavailable-alignment notices. Readable explanatory text carries the state alongside color. The preserved design study uses the same roles for simulated notices.
 
 **The Series Identity Rule.** Carry source role through a named legend, solid/dashed marks and aligned readings; color alone must not identify a trace.
 
@@ -288,7 +290,7 @@ The centered content container has a maximum width (1296px). Its width is the vi
 
 The desktop header is a three-part grid with centered section links. The scenic introduction layers its copy and a tilted command panel independently; the panel is (450px) wide before responsive reductions. Reading sections use paired columns, a three-column article grid, generous gaps and fine horizontal separation. The two main paired layouts use proportions (1.35fr / 1fr) and (1.15fr / 1fr), with a desktop gap (70px).
 
-The responsive thresholds are 1600px, 1250px, 1050px, 800px and 420px. The 1050px adjustments apply only down to 801px. At 800px and below, the panel moves into flow beneath the introduction, the reading grids stack, and the contact section becomes a block. Section navigation remains visible. The dialog is capped to the viewport width and dynamic height and scrolls internally when needed.
+The responsive thresholds are 1600px, 1250px, 1050px, 800px and 420px. The 1050px adjustments apply only down to 801px. At 800px and below, the panel moves into flow beneath the introduction, the reading grids stack, and the contact section becomes a block. Section navigation remains visible. The historical dialog specimen is capped to the viewport width and dynamic height and scrolls internally when needed.
 
 ### Workbench layout
 
@@ -300,14 +302,14 @@ Plots use heights (108px / 74px / 44px) for speed, throttle and brake; at 800px 
 
 ## Elevation & Depth
 
-Depth combines translucent materials, inset white highlights, soft ambient shadows and a lightly tilted command surface. This treatment belongs to the scenic controls and experiment, while the reading sections rely on spacing and rules. The panel starts with a solid pale fallback; where backdrop filtering is supported, it uses a translucent gradient and blur (11px) with saturation (1.1). The secondary button uses blur (12px), and the dialog backdrop uses blur (7px).
+Depth combines translucent materials, inset white highlights, soft ambient shadows and a lightly tilted command surface. This treatment belongs to the scenic controls and experiment, while the reading sections rely on spacing and rules. The panel starts with a solid pale fallback; where backdrop filtering is supported, it uses a translucent gradient and blur (11px) with saturation (1.1). The secondary button uses blur (12px); the retained historical dialog backdrop uses blur (7px).
 
 ### Shadow Vocabulary
 
 - **Primary Action:** inset highlight, fine green rim and diffuse lime lift; the hover state changes both gradient and shadow.
 - **Glass Panel:** ambient blue lift plus multiple inset highlights and a lower blue rim. A separate inset outline and gradient sheen create the material's edges.
 - **Experiment:** a soft inset highlight and faint blue ambient shadow.
-- **Dialog:** a broad, darker shadow over a translucent blue backdrop.
+- **Historical Dialog:** a broad, darker shadow over a translucent blue backdrop.
 
 Exact shadow stacks, gradients and motion values live in the sidecar, where the token schema can represent them without changing their CSS meaning.
 
@@ -349,31 +351,35 @@ The header navigation is an always-visible horizontal row linking to Lab, Notes,
 
 The signature surface contains three real section links with inline line icons, stacked title and description, and small return-key cues. Rows have rounded corners and generous touch area, with a softly highlighted first row. Hover adds a pale tint; the focus outline uses a tighter offset (1px). A framed rim and one-time light sweep belong to the shell, while the links remain separate semantic controls. The desktop tilt is `perspective(1200px) rotateY(-7deg) rotateZ(-2deg)`, softened to a Y rotation of (-5deg) when stacked.
 
-### Command Dialog
+### Historical Command Dialog
 
-A native dialog presents a solid pale panel, rounded command links, circular close control, and compact key hints. Rows use a translucent white rest surface and a pale green hover/focus surface. The panel width, padding and shape are tokenized; maximum height is the dynamic viewport minus (48px). Its backdrop tints and blurs the page beneath it.
+A retained visual specimen documents the former native dialog: a solid pale panel, rounded command links, circular close control and compact key hints. Rows use a translucent white rest surface and a pale green hover/focus surface. The panel width, padding and shape remain tokenized; maximum height is the dynamic viewport minus (48px). Its historical backdrop tints and blurs the page beneath it.
 
-Arrow keys, Home and End move between command links. Tab cycles through the dialog controls. Dismissal returns focus to the opener; selecting Notes or Contact moves focus to its heading. The Source action follows an ordinary GitHub link. Reduced-motion preferences also affect section navigation scroll. Link titles and descriptions have separate accessible associations and explicit word boundaries. Sidecar snippets illustrate the visual states; runtime keyboard and modal behavior remains in the Vue implementation.
+`CommandDialog.vue` is retired from the production application. The specimens do not supply a modal, keyboard navigation, focus trapping or dismissal behavior. The homepage's glass command surface remains a semantic navigation component with ordinary section links; its lab card opens `/lab/lap-compare/`.
 
 ### Workbench Selectors and Actions
 
 The frosted selector bar contains explicitly labeled native session and driver selects, an authored inline SVG chevron and a (44px) swap button. Main selects have minimum height (46px), an opaque surface and a fine local rule; hover shifts the border to blue. Text actions use a minimum height (44px), text (13px), weight (500), a small-control radius and quiet soft-surface hover. Disabled pagination actions use opacity (0.55) and a default cursor. The appearance control retains a circular (44px) target and an accessible label naming its next appearance.
 
-The prototype shares visible keyboard outlines (3px) in the appearance-aware focus color, offset (4px); sector focus moves the outline inside by (4px) to stay visible within the clipped group. A skip link appears on focus. State changes are announced through a polite status region. This local focus offset supplements the homepage's offset rather than replacing it.
+The production workbench shares visible keyboard outlines (3px) in the appearance-aware focus color, offset (4px); sector focus moves the outline inside by (4px) to stay visible within the clipped group. A skip link appears on focus. State changes are announced through a polite status region. This local focus offset supplements the homepage's offset rather than replacing it. Its scoped `.lap-page` styles explicitly honor both manual appearance choices, including light when the device prefers dark.
 
 ### Workbench Sectors and Traces
 
-The three joined sector buttons show a sector name, difference, winner and both reported times. Hover uses the soft surface; `aria-pressed` adds the selected ground, selected ink and visible check mark. Accessible names include both times and the winner. Selecting a sector focuses the trace range; a separate action returns to the full lap.
+The three joined sector buttons show a sector name, difference, winner and both reported times. Hover uses the soft surface; `aria-pressed` adds the selected ground, selected ink and visible check mark. Accessible names include both times and the winner. Selecting a sector changes the trace range to its estimated-progress bounds; a separate action returns to the full lap.
 
 Speed, throttle and binary brake share a linked estimated-progress cursor. Reference traces use a solid stroke (2px); comparison traces use the same width with a dash pattern (6 / 4). Grid lines and the cursor use (1px) strokes, with the cursor dashed (3 / 4). A native range input, minimum height (38px), offers the keyboard path and exposes progress as accessible value text. Readings use the nearest recorded sample. The plotted SVGs are hidden from assistive technology; the range, readings and table provide semantic alternatives. The alignment note distinguishes estimated progress from reported timing and brake on/off from pressure.
 
 ### Workbench Readings and Data Table
 
-The soft, opaque inspector aligns named drivers above right-aligned tabular measurements; row labels remain muted and left aligned. It provides the data-table disclosure and preview-link copy action, with status feedback for copy success or failure. The table opens inline, moves focus to its heading, exposes its expanded state and returns focus to the opener on close. It displays the recorded samples in groups of (20), with fine horizontal rules, muted headers and horizontal overflow contained in a keyboard-focusable region. Table headers and cells use padding (12px 14px), with no left padding in the first column. The comparison-details disclosure preserves source and interpretation context.
+The soft, opaque inspector aligns named drivers above right-aligned tabular measurements; row labels remain muted and left aligned. It provides the data-table disclosure and comparison-link copy action, with status feedback and a selectable URL fallback. The table opens inline, moves focus to its heading, exposes its expanded state and returns focus to the opener on close. It displays all raw samples ordered by elapsed time within each lap, in groups of (20), with fine horizontal rules, muted headers and horizontal overflow contained in a keyboard-focusable region. It does not sort by estimated progress. Missing channel cells say “Missing”; estimated-progress cells say “Unavailable” for a recording that fails the alignment guard. Table headers and cells use padding (12px 14px), with no left padding in the first column. The comparison-details disclosure preserves source URLs, retrieval dates and interpretation context, plus a CSV for all (681) bundled samples that remains available without JavaScript.
 
-### Workbench Preview States
+### Workbench Data and Recovery States
 
-The review toolbar explicitly labels the design preview and lets reviewers simulate loading, provider failure and missing telemetry. Amber notices retain the visible timing evidence and recorded comparison. The failure state offers Retry; in this prototype it restores the ready state locally. Partial telemetry removes comparison-series samples around estimated progress (47–57%), leaves a visible gap and returns “Missing” readings rather than substituted values; its table omits those samples. These are implemented presentation states with embedded data, not completed provider networking. Browser/axe checks reported in the finish review cover both appearances and narrow layouts; no manual screen-reader, physical-device or production-resilience certification is implied.
+The production workbench has no simulated provider toolbar. Its bundled Sainz/Russell comparison opens immediately; the ten-driver Q3 catalog includes uncached selections that request historical OpenF1 data. Amber loading and error notices explicitly name the comparison still displayed below. Requested and applied pairs remain separate, so failed or superseded requests cannot relabel the visible timing evidence. Retry makes a real provider request; refresh explicitly requests current historical data. Provider parsing, scheduling, transport and cache behavior are documented in the repository README.
+
+Reported lap and sector times remain available when estimated alignment fails. Speed coverage guards withhold plots and disable the progress cursor when speed is missing, either lap edge is missed by more than one second, or an inter-sample gap exceeds (1.5s). Raw samples remain available, with unavailable progress explicitly labeled. Missing channels stay missing rather than receiving fabricated readings. Progress integrates sampled speed separately for each lap and is not measured track distance; brake remains binary.
+
+The separate design study retains its explicitly simulated loading, failure and partial-telemetry states. Those controls demonstrate presentation only. Production finish evidence is recorded in `.impeccable/review/production-finish-review.md` and `production-finish-verdict.md`; the verdict's ship disposition covers the scored fix list. Automated browser and accessibility checks do not imply manual screen-reader or physical-device certification.
 
 ## Do's and Don'ts
 
@@ -385,7 +391,7 @@ The review toolbar explicitly labels the design preview and lets reviewers simul
 - **Do** pair glass transparency with its solid fallback and preserve visible focus treatments.
 - **Do** retain the homepage's single light sweep and honor reduced-motion and forced-colors preferences.
 - **Do** preserve solid/dashed series identity, tabular measurements and visible missing-data states in the workbench.
-- **Do** keep the workbench's recorded data and simulated provider states clearly labeled as a design prototype.
+- **Do** distinguish the production workbench's historical requests and recovery from the preserved design study's simulated provider states.
 
 ### Don't:
 
